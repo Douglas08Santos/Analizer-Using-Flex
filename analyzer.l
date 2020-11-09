@@ -4,35 +4,36 @@ id [a-zA-Z][a-zA-Z0-9]*
 
 \n                   {yylineno++;} 
 
-#.*                     ;
+#.*                   return INCLUDE;
 
 "//".*                  ;
 
 \{                    return LBRACE;
 \}                    return RBRACE;
 
-\( 	                  return  LPAREN;
-\) 	                  return  RPAREN;
+\( 	                  return LPAREN;
+\) 	                  return RPAREN;
 
-\[                    return  LBRACKET;   
-\]                    return  RBRACKET;
+\[                    return LBRACKET;   
+\]                    return RBRACKET;
 
-\,                    return  COMMA;
-\;                    return  SEMI;
+\,                    return COMMA;
+\;                    return SEMI;
 
 \+                    return PLUS;
 \-                    return MINUS;
-\/                    return DIV ;
-\%\%                  return MOD ;
-\%                    return PERC ;
-\*                    return STAR ;
-\*\*                  return POW ;
+\/                    return DIV;
+\%\%                  return MOD;
+\*                    return MULT;
+\*\*                  return POW;
 
 \+\+                  return INCREMENT;
 \-\-                  return DECREMENT;
 
-\*\=                  return MULT_ASSIGN ;
-\/\=                  return DIV_ASSIGN ;
+\+\=                  return PLUS_ASSIGN;
+\-\=                  return MINUS_ASSIGN;
+\*\=                  return MULT_ASSIGN;
+\/\=                  return DIV_ASSIGN;
 
 \&\& |
 and                   return AND;
@@ -64,9 +65,9 @@ for                   return FOR;
 while                 return WHILE;
 return                return RETURN;
 
-{id}                  return ID
+{id}                  return ID;
 \".*\"                return yytext[0];
-[0-9]+                return NUM
+[0-9]+                return NUM;
 [+-]?[0-9]+"."[0-9]*  return REAL;
 
 [^ \t]                 ;
