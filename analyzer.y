@@ -9,7 +9,7 @@ extern FILE *fp;
 %token LBRACE LBRACKET LPAREN RPAREN RBRACKET RBRACE
 %token COMMA SEMI
 %token PLUS MINUS MULT DIV MOD POW ASSIGN
-%token INCLEMENT DECREMENT
+%token INCREMENT DECREMENT
 %token PLUS_ASSIGN MINUS_ASSIGN MULT_ASSIGN DIV_ASSIGN
 %token AND OR
 %token NOT EQUAL DIFF
@@ -43,7 +43,7 @@ Stmts: Type Assignment ';'
 Assignment: ID ASSIGN Assignment
     | ID ASSIGN FunctionCall
     | ID ASSIGN ArrayUse
-    | ArrayUse = Assignment
+    | ArrayUse ASSIGN Assignment
     | ID COMMA Assignment
     | NUM COMMA Assignment
     | ID PLUS Assignment
@@ -108,8 +108,8 @@ While_Stmt: WHILE LPAREN Logic_Expr RPAREN Stmt
     ;
 
 /*Bloco For*/
-For_Stmt: FOR LPAREN Logic_Expr SEMI Logic_Expr; Logic_Expr RPAREN Stmt
-    | FOR LPAREN Logic_Expr SEMI Logic_Expr; Logic_Expr RPAREN LBRACE StmtList RBRACE
+For_Stmt: FOR LPAREN Logic_Expr SEMI Logic_Expr SEMI Logic_Expr RPAREN Stmt
+    | FOR LPAREN Logic_Expr SEMI Logic_Expr SEMI Logic_Expr RPAREN LBRACE StmtList RBRACE
     ;
 
 /*Bloco IF-ELSE*/

@@ -1,3 +1,7 @@
+%{
+#include "y.tab.h"
+%}
+
 id [a-zA-Z][a-zA-Z0-9]*
 
 %%
