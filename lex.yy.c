@@ -509,9 +509,12 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "analyzer.l"
 #line 2 "analyzer.l"
-#include "y.tab.h"
-#line 514 "lex.yy.c"
-#line 515 "lex.yy.c"
+    #include <stdio.h>
+    #include "y.tab.h"
+
+    extern int yyerror(char *msg);
+#line 517 "lex.yy.c"
+#line 518 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -728,10 +731,10 @@ YY_DECL
 		}
 
 	{
-#line 7 "analyzer.l"
+#line 10 "analyzer.l"
 
 
-#line 735 "lex.yy.c"
+#line 738 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -791,260 +794,260 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 9 "analyzer.l"
-{yylineno++;} 
+#line 12 "analyzer.l"
+{ yylineno++; } 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 11 "analyzer.l"
-return INCLUDE;
+#line 14 "analyzer.l"
+{ return (INCLUDE); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "analyzer.l"
+#line 16 "analyzer.l"
 ;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 15 "analyzer.l"
-return LBRACE;
+#line 18 "analyzer.l"
+{ return (LBRACE); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 16 "analyzer.l"
-return RBRACE;
+#line 19 "analyzer.l"
+{ return (RBRACE); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 18 "analyzer.l"
-return LPAREN;
+#line 21 "analyzer.l"
+{ return (LPAREN); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 19 "analyzer.l"
-return RPAREN;
+#line 22 "analyzer.l"
+{ return (RPAREN); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 21 "analyzer.l"
-return LBRACKET;   
+#line 24 "analyzer.l"
+{ return (LBRACKET); }   
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 22 "analyzer.l"
-return RBRACKET;
+#line 25 "analyzer.l"
+{ return (RBRACKET); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 24 "analyzer.l"
-return COMMA;
+#line 27 "analyzer.l"
+{ return (COMMA); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "analyzer.l"
-return SEMI;
+#line 28 "analyzer.l"
+{ return (SEMI); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "analyzer.l"
-return PLUS;
+#line 30 "analyzer.l"
+{ return (PLUS); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "analyzer.l"
-return MINUS;
+#line 31 "analyzer.l"
+{ return (MINUS); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 29 "analyzer.l"
-return DIV;
+#line 32 "analyzer.l"
+{ return (DIV); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 30 "analyzer.l"
-return MOD;
+#line 33 "analyzer.l"
+{ return (MOD); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 31 "analyzer.l"
-return MULT;
+#line 34 "analyzer.l"
+{ return (MULT); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "analyzer.l"
-return POW;
+#line 35 "analyzer.l"
+{ return (POW); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 34 "analyzer.l"
-return INCREMENT;
+#line 37 "analyzer.l"
+{ return (INCREMENT); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 35 "analyzer.l"
-return DECREMENT;
+#line 38 "analyzer.l"
+{ return (DECREMENT); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "analyzer.l"
-return PLUS_ASSIGN;
+#line 40 "analyzer.l"
+{ return (PLUS_ASSIGN); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "analyzer.l"
-return MINUS_ASSIGN;
+#line 41 "analyzer.l"
+{ return (MINUS_ASSIGN); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "analyzer.l"
-return MULT_ASSIGN;
+#line 42 "analyzer.l"
+{ return (MULT_ASSIGN); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 40 "analyzer.l"
-return DIV_ASSIGN;
+#line 43 "analyzer.l"
+{ return (DIV_ASSIGN); }
 	YY_BREAK
 case 24:
-#line 43 "analyzer.l"
+#line 46 "analyzer.l"
 case 25:
 YY_RULE_SETUP
-#line 43 "analyzer.l"
-return AND;
+#line 46 "analyzer.l"
+{ return (AND); }
 	YY_BREAK
 case 26:
-#line 46 "analyzer.l"
+#line 49 "analyzer.l"
 case 27:
 YY_RULE_SETUP
-#line 46 "analyzer.l"
-return OR;
+#line 49 "analyzer.l"
+{ return (OR); }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 48 "analyzer.l"
-return NOT;    
+#line 51 "analyzer.l"
+{ return (NOT); }   
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 49 "analyzer.l"
-return EQUAL;
+#line 52 "analyzer.l"
+{ return (EQUAL); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 50 "analyzer.l"
-return DIFF;
+#line 53 "analyzer.l"
+{ return (DIFF); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 52 "analyzer.l"
-return LESS_EQUAL_THAN;
+#line 55 "analyzer.l"
+{ return (LESS_EQUAL_THAN); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 53 "analyzer.l"
-return MORE_EQUAL_THAN;
+#line 56 "analyzer.l"
+{ return (MORE_EQUAL_THAN); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 54 "analyzer.l"
-return LESS_THAN;
+#line 57 "analyzer.l"
+{ return (LESS_THAN); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 55 "analyzer.l"
-return MORE_THAN; 
+#line 58 "analyzer.l"
+{ return (MORE_THAN); } 
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 57 "analyzer.l"
-return ASSIGN;
+#line 60 "analyzer.l"
+{ return (ASSIGN); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 59 "analyzer.l"
-return INT;
+#line 62 "analyzer.l"
+{ return (INT); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 60 "analyzer.l"
-return FLOAT;                 
+#line 63 "analyzer.l"
+{ return (FLOAT); }                 
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 61 "analyzer.l"
-return CHAR;
+#line 64 "analyzer.l"
+{ return (CHAR); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 62 "analyzer.l"
-return DOUBLE;
+#line 65 "analyzer.l"
+{ return (DOUBLE); }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 63 "analyzer.l"
-return LONG;
+#line 66 "analyzer.l"
+{ return (LONG); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 64 "analyzer.l"
-return VOID;
+#line 67 "analyzer.l"
+{ return (VOID); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 66 "analyzer.l"
-return IF;
+#line 69 "analyzer.l"
+{ return (IF); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 67 "analyzer.l"
-return ELSE;
+#line 70 "analyzer.l"
+{ return (ELSE); }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 68 "analyzer.l"
-return FOR;
+#line 71 "analyzer.l"
+{ return (FOR); }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 69 "analyzer.l"
-return WHILE;
+#line 72 "analyzer.l"
+{ return (WHILE); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 70 "analyzer.l"
-return RETURN;
+#line 73 "analyzer.l"
+{ return (RETURN); }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 72 "analyzer.l"
-return ID;
+#line 75 "analyzer.l"
+{ return (ID); }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 73 "analyzer.l"
-return yytext[0];
+#line 76 "analyzer.l"
+{ return (yytext[0]); }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 74 "analyzer.l"
-return NUM;
+#line 77 "analyzer.l"
+{ return (NUM); }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 75 "analyzer.l"
-return REAL;
+#line 78 "analyzer.l"
+{ return (REAL); }
 	YY_BREAK
 case 51:
 /* rule 51 can match eol */
 YY_RULE_SETUP
-#line 77 "analyzer.l"
+#line 80 "analyzer.l"
 ;
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 79 "analyzer.l"
+#line 82 "analyzer.l"
 ECHO;
 	YY_BREAK
-#line 1048 "lex.yy.c"
+#line 1051 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2049,7 +2052,9 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 79 "analyzer.l"
+#line 82 "analyzer.l"
 
 
-
+#ifndef yywrap
+   int yywrap (void) {return 1;}
+#endif

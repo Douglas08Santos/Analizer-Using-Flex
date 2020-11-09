@@ -69,11 +69,14 @@
 #line 1 "analyzer.y"
 
 #include <stdio.h>
-#include <stdlib.h>
 
-extern FILE *fp;
+int yylex(void);
+int yyerror(char *s);
+extern int yylineno;
+extern char * yytext;
 
-#line 77 "y.tab.c"
+
+#line 80 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -594,13 +597,13 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    30,    34,    35,    36,    37,    38,    39,
-      43,    44,    45,    46,    47,    48,    49,    50,    51,    52,
-      53,    54,    55,    56,    57,    58,    59,    60,    61,    62,
-      66,    67,    71,    75,    78,    79,    81,    82,    84,    86,
-      87,    89,    90,    91,    92,    93,    97,    98,    99,   100,
-     101,   102,   106,   107,   111,   112,   116,   118,   122,   123,
-     124,   125,   126,   127,   128,   129,   130
+       0,    35,    35,    36,    40,    41,    42,    43,    44,    45,
+      49,    50,    51,    52,    53,    54,    55,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    65,    66,    67,    68,
+      72,    73,    77,    81,    84,    85,    87,    88,    90,    92,
+      93,    95,    96,    97,    98,    99,   103,   104,   105,   106,
+     107,   108,   112,   113,   117,   118,   122,   124,   128,   129,
+     130,   131,   132,   133,   134,   135,   136
 };
 #endif
 
@@ -1524,7 +1527,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1528 "y.tab.c"
+#line 1531 "y.tab.c"
 
       default: break;
     }
@@ -1756,26 +1759,14 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 132 "analyzer.y"
+#line 138 "analyzer.y"
 
 
-#include"lex.yy.c"
-#include<ctype.h>
-int count=0;
-
-int main(int argc, char *argv[])
-{
-	yyin = fopen(argv[1], "r");
-	
-   if(!yyparse())
-		printf("\nParsing complete\n");
-	else
-		printf("\nParsing failed\n");
-	
-	fclose(yyin);
-    return 0;
+int main (void) {
+	return yyparse();
 }
          
-yyerror(char *s) {
-	printf("%d : %s %s\n", yylineno, s, yytext );
+int yyerror (char *msg) {
+	fprintf (stderr, "%d: %s at '%s'\n", yylineno, msg, yytext);
+	return 0;
 }

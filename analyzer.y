@@ -1,8 +1,11 @@
 %{
 #include <stdio.h>
-#include <stdlib.h>
 
-extern FILE *fp;
+int yylex(void);
+int yyerror(char *s);
+extern int yylineno;
+extern char * yytext;
+
 %}
 
 %token INCLUDE
@@ -24,6 +27,9 @@ extern FILE *fp;
 %right ASSIGN
 %left AND OR
 %left LESS_THAN MORE_THAN LESS_EQUAL_THAN MORE_EQUAL_THAN EQUAL DIFF
+
+%start Instr
+
 %%
 
 Instr: Func_decl 
@@ -131,23 +137,11 @@ Logic_Expr:
     ;
 %%
 
-#include"lex.yy.c"
-#include<ctype.h>
-int count=0;
-
-int main(int argc, char *argv[])
-{
-	yyin = fopen(argv[1], "r");
-	
-   if(!yyparse())
-		printf("\nParsing complete\n");
-	else
-		printf("\nParsing failed\n");
-	
-	fclose(yyin);
-    return 0;
+int main (void) {
+	return yyparse();
 }
          
-yyerror(char *s) {
-	printf("%d : %s %s\n", yylineno, s, yytext );
+int yyerror (char *msg) {
+	fprintf (stderr, "%d: %s at '%s'\n", yylineno, msg, yytext);
+	return 0;
 }
