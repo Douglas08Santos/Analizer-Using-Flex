@@ -1,12 +1,17 @@
 %{
 #include <stdio.h>
 
-int yylex(void);
-int yyerror(char *s);
+int yylex();
+void yyerror(char const *s);
 extern int yylineno;
 extern char * yytext;
+int n_line;
 
 %}
+%union{
+  int num;
+  char *let;
+}
 
 %token INCLUDE
 %token LBRACE LBRACKET LPAREN RPAREN RBRACKET RBRACE
@@ -37,11 +42,11 @@ Instr: Func_decl
     ;
 
 /*Bloco de declaração*/
-Stmts: Type Assignment ';'
-    | Assignment ';'
-    | FunctionCall ';'
-    | ArrayUse ';'
-    | Type ArrayUse ';'
+Stmts: Type Assignment SEMI
+    | Assignment SEMI
+    | FunctionCall SEMI
+    | ArrayUse SEMI
+    | Type ArrayUse SEMI
     | error
     ;
 
@@ -54,18 +59,19 @@ Assignment: ID ASSIGN Assignment
     | NUM COMMA Assignment
     | ID PLUS Assignment
     | ID MINUS Assignment
-    | ID PLUS Assignment
+    | ID MULT Assignment
     | ID DIV Assignment
     | NUM PLUS Assignment
     | NUM MINUS Assignment
-    | NUM PLUS Assignment
+    | NUM MULT Assignment
     | NUM DIV Assignment
     | LPAREN Assignment RPAREN
     | MINUS LPAREN Assignment RPAREN
     | MINUS NUM
     | MINUS ID
-    |   NUM
-	|   ID
+    | ID	
+    | NUM
+   
     ;
 
 /*Chamada de função*/
@@ -138,10 +144,12 @@ Logic_Expr:
 %%
 
 int main (void) {
-	return yyparse();
+    n_line = 1;
+    yyparse();
+   
+    printf("\nNº linhas: %d",n_line);
+    printf("\nFIM\n");
+    
+	
 }
-         
-int yyerror (char *msg) {
-	fprintf (stderr, "%d: %s at '%s'\n", yylineno, msg, yytext);
-	return 0;
-}
+    

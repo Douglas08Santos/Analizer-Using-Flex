@@ -2,82 +2,92 @@
     #include <stdio.h>
     #include "y.tab.h"
 
-    extern int yyerror(char *msg);
+    int COMMENT= 0;
+    int n_line = 1;
+
+    extern char* yytext;
+    void yyerror(char const *s){
+        fprintf(stderr, "ERROR : %s\n" ,s);
+    }
+
 %}
 
 id [a-zA-Z][a-zA-Z0-9]*
 
 %%
 
-\n                      { yylineno++; } 
+\n                      {n_line++;} 
 
 #.*                     { return (INCLUDE); }
 
+"/*"                    {COMMENT=1;}
+"*/"                    {COMMENT=0;}
 "//".*                  ;
 
-\{                      { return (LBRACE); }
-\}                      { return (RBRACE); }
+\{                      {if(!COMMENT) return (LBRACE); }
+\}                      {if(!COMMENT) return (RBRACE); }
 
-\( 	                    { return (LPAREN); }
+\( 	                    {if(!COMMENT) return (LPAREN); }
 \) 	                    { return (RPAREN); }
 
-\[                      { return (LBRACKET); }   
-\]                      { return (RBRACKET); }
+\[                      {if(!COMMENT) return (LBRACKET); }   
+\]                      {if(!COMMENT) return (RBRACKET); }
 
-\,                      { return (COMMA); }
-\;                      { return (SEMI); }
+\,                      {if(!COMMENT) return (COMMA); }
+\;                      {if(!COMMENT) return (SEMI); }
 
-\+                      { return (PLUS); }
-\-                      { return (MINUS); }
-\/                      { return (DIV); }
-\%\%                    { return (MOD); }
-\*                      { return (MULT); }
-\*\*                    { return (POW); }
+\+                      {if(!COMMENT) return (PLUS); }
+\-                      {if(!COMMENT) return (MINUS); }
+\/                      {if(!COMMENT) return (DIV); }
+\%\%                    {if(!COMMENT) return (MOD); }
+\*                      {if(!COMMENT) return (MULT); }
+\*\*                    {if(!COMMENT) return (POW); }
  
-\+\+                    { return (INCREMENT); }
-\-\-                    { return (DECREMENT); }
+\+\+                    {if(!COMMENT) return (INCREMENT); }
+\-\-                    {if(!COMMENT) return (DECREMENT); }
  
-\+\=                    { return (PLUS_ASSIGN); }
-\-\=                    { return (MINUS_ASSIGN); }
-\*\=                    { return (MULT_ASSIGN); }
-\/\=                    { return (DIV_ASSIGN); }
+\+\=                    {if(!COMMENT) return (PLUS_ASSIGN); }
+\-\=                    {if(!COMMENT) return (MINUS_ASSIGN); }
+\*\=                    {if(!COMMENT) return (MULT_ASSIGN); }
+\/\=                    {if(!COMMENT) return (DIV_ASSIGN); }
  
 \&\& | 
-and                     { return (AND); }
+and                     {if(!COMMENT) return (AND); }
  
 \|\| | 
-or	                    { return (OR); }
+or	                    {if(!COMMENT) return (OR); }
  
-\!                      { return (NOT); }   
-\=\=                    { return (EQUAL); }
-\!\=                    { return (DIFF); }
+\!                      {if(!COMMENT) return (NOT); }   
+\=\=                    {if(!COMMENT) return (EQUAL); }
+\!\=                    {if(!COMMENT) return (DIFF); }
  
-\<=                     { return (LESS_EQUAL_THAN); }
-\>=                     { return (MORE_EQUAL_THAN); }
-\<                      { return (LESS_THAN); }
-\>                      { return (MORE_THAN); } 
+\<=                     {if(!COMMENT) return (LESS_EQUAL_THAN); }
+\>=                     {if(!COMMENT) return (MORE_EQUAL_THAN); }
+\<                      {if(!COMMENT) return (LESS_THAN); }
+\>                      {if(!COMMENT) return (MORE_THAN); } 
      
-=                       { return (ASSIGN); }
+=                       {if(!COMMENT) return (ASSIGN); }
      
-int                     { return (INT); }
-float                   { return (FLOAT); }                 
-char                    { return (CHAR); }
-double                  { return (DOUBLE); }
-long                    { return (LONG); }
-void                    { return (VOID); }
+int                     {if(!COMMENT) return (INT); }
+float                   {if(!COMMENT) return (FLOAT); }                 
+char                    {if(!COMMENT) return (CHAR); }
+double                  {if(!COMMENT) return (DOUBLE); }
+long                    {if(!COMMENT) return (LONG); }
+void                    {if(!COMMENT) return (VOID); }
      
-if                      { return (IF); }
-else                    { return (ELSE); }
-for                     { return (FOR); }
-while                   { return (WHILE); }
-return                  { return (RETURN); }
+if                      {if(!COMMENT) return (IF); }
+else                    {if(!COMMENT) return (ELSE); }
+for                     {if(!COMMENT) return (FOR); }
+while                   {if(!COMMENT) return (WHILE); }
+return                  {if(!COMMENT) return (RETURN); }
      
-{id}                    { return (ID); }
-\".*\"                  { return (yytext[0]); }
-[0-9]+                  { return (NUM); }
-[+-]?[0-9]+"."[0-9]*    { return (REAL); }
+{id}                    {if(!COMMENT) yylval.let = yytext; return (ID); }
+\".*\"                  {if(!COMMENT) return (yytext[0]); }
+[0-9]+                  {if(!COMMENT) yylval.num = atoi(yytext); return (NUM); }
+[+-]?[0-9]+"."[0-9]*    {if(!COMMENT) return (REAL); }
 
-[^ \t]                 ;
+[ \t]                   {;}
+.                       {yyerror("Unexpected token..!");}
 
 %%
 
